@@ -17,14 +17,11 @@ cdh() {
                 if [[ "$(pwd)" != "$last_dir" ]]; then
                     # Add the current directory to the history file.
                     echo "$(pwd)" >> $history_file
-
                     echo "Directory added to history."
                 else
-
                     echo "Directory is already the last entry in history, not adding duplicate."
                 fi
             else
-
                 echo "Failed to change to directory: $new_dir"
             fi
             ;;
@@ -35,13 +32,9 @@ cdh() {
             echo "Directory history cleaned."
             ;;
         -h)
+
             # Display help message.
             echo "Usage:"
-
-
-
-
-
             echo "  cdh                    - Lists all directories in the history file with line numbers."
             echo "  cdh add <directory>    - Adds the current path to the history."
             echo "  cdh <index>            - Changes to the directory corresponding to <index> in the history file."
@@ -66,7 +59,6 @@ cdh() {
                     nl -w1 -s': ' $history_file
                 fi
             else
-
                 echo "No directories in history."
             fi
             ;;
