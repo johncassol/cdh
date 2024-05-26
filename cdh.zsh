@@ -5,7 +5,6 @@ cdh() {
     # Handle different commands based on the first argument.
     case "$1" in
         add)
-
             echo "Adding new directory to history..."
             shift
             local new_dir="$*"
@@ -28,11 +27,9 @@ cdh() {
         clean)
             # 'clean' command clears the history file.
             : > $history_file
-
             echo "Directory history cleaned."
             ;;
         -h)
-
             # Display help message.
             echo "Usage:"
             echo "  cdh                    - Lists all directories in the history file with line numbers."
@@ -50,11 +47,9 @@ cdh() {
                         cd "$dir" || { echo "Error trying to move to $dir"; return; }
                         echo "Moved to $dir"
                     else
-
                         echo "Directory not found at index $1: $dir"
                     fi
                 else
-
                     echo "Listing all directories in history:"
                     nl -w1 -s': ' $history_file
                 fi
