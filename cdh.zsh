@@ -5,7 +5,8 @@ cdh() {
     # Handle different commands based on the first argument.
     case "$1" in
         add)
-            echo "Adicionando novo diretório ao histórico..."
+
+            echo "Adding new directory to history..."
             shift
             local new_dir="$*"
 
@@ -16,27 +17,36 @@ cdh() {
                 if [[ "$(pwd)" != "$last_dir" ]]; then
                     # Add the current directory to the history file.
                     echo "$(pwd)" >> $history_file
-                    echo "Diretório adicionado ao histórico."
+
+                    echo "Directory added to history."
                 else
-                    echo "Diretório já está no histórico como a última entrada, não adicionando duplicata."
+
+                    echo "Directory is already the last entry in history, not adding duplicate."
                 fi
             else
-                echo "Falha ao mudar para o diretório: $new_dir"
+
+                echo "Failed to change to directory: $new_dir"
             fi
             ;;
         clean)
             # 'clean' command clears the history file.
             : > $history_file
-            echo "Histórico de diretórios limpo."
+
+            echo "Directory history cleaned."
             ;;
         -h)
             # Display help message.
-            echo "Uso:"
-            echo "  cdh                    - Lista todos os diretórios no arquivo de histórico com números de linha."
-            echo "  cdh add <diretório>    - Adiciona o caminho atual no histórico."
-            echo "  cdh <índice>           - Muda para o diretório correspondente ao <índice> no arquivo de histórico."
-            echo "  cdh clean              - Limpa o arquivo de histórico de diretórios."
-            echo "  cdh -h                 - Exibe esta mensagem de ajuda."
+            echo "Usage:"
+
+
+
+
+
+            echo "  cdh                    - Lists all directories in the history file with line numbers."
+            echo "  cdh add <directory>    - Adds the current path to the history."
+            echo "  cdh <index>            - Changes to the directory corresponding to <index> in the history file."
+            echo "  cdh clean              - Clears the directory history file."
+            echo "  cdh -h                 - Displays this help message."
             ;;
         *)
             # By default, list all directories in the history file with line numbers.
@@ -44,17 +54,20 @@ cdh() {
                 if [[ "$1" =~ ^[0-9]+$ ]]; then
                     local dir=$(sed "${1}q;d" $history_file)
                     if [ -d "$dir" ]; then
-                        cd "$dir" || { echo "Erro ao tentar mover para $dir"; return; }
-                        echo "Movido para $dir"
+                        cd "$dir" || { echo "Error trying to move to $dir"; return; }
+                        echo "Moved to $dir"
                     else
-                        echo "Diretório não encontrado no índice $1: $dir"
+
+                        echo "Directory not found at index $1: $dir"
                     fi
                 else
-                    echo "Listando todos os diretórios no histórico:"
+
+                    echo "Listing all directories in history:"
                     nl -w1 -s': ' $history_file
                 fi
             else
-                echo "Nenhum diretório no histórico."
+
+                echo "No directories in history."
             fi
             ;;
     esac
